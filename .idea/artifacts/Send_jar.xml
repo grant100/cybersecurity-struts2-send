@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Send:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Send_jar</output-path>
+    <root id="archive" name="Send.jar">
+      <element id="module-output" name="Send" />
+    </root>
+  </artifact>
+</component>
