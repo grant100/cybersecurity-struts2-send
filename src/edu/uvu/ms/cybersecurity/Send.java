@@ -18,6 +18,7 @@ public class Send {
     public static String PWD = "pwd";
     public static String CAT = "cat";
     public static String ECHO = "echo";
+    public static String CHMOD = "chmod";
     public static String MKDIR = "mkdir";
     public static String CD = "cd";
     public static String JOIN = " && ";
@@ -67,6 +68,7 @@ public class Send {
         boolean isPWD = check(input,3,PWD);
         boolean isMKDIR = check(input,5,MKDIR);
         boolean isECHO = check(input,4,ECHO);
+        boolean isCHMOD = check(input,5,CHMOD);
         boolean isRM = check(input,2,RM);
         boolean isLS = check(input,2,LS);
         boolean isCAT = check(input,3,CAT);
@@ -154,6 +156,23 @@ public class Send {
             }
 
             return input;
+        }
+
+        if(isCHMOD){
+            String args[] = input.split("\\s");
+            if(args.length < 3){
+                return null;
+            }else{
+                if(path.endsWith("/")){
+                    input = args[0]+" "+args[1]+" "+path+args[2];
+                }else{
+                    input = args[0]+" "+args[1]+" "+path+"/"+args[2];
+                }
+
+            }
+
+            return input;
+
         }
 
         if(input.endsWith(SH)){
