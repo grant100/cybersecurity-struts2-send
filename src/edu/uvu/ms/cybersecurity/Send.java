@@ -12,10 +12,12 @@ public class Send {
     private String url;
 
     public static String BK = "..";
+    public static String SH = ".sh";
     public static String RM = "rm";
     public static String LS = "ls";
     public static String PWD = "pwd";
     public static String CAT = "cat";
+    public static String ECHO = "echo";
     public static String MKDIR = "mkdir";
     public static String CD = "cd";
     public static String JOIN = " && ";
@@ -64,6 +66,7 @@ public class Send {
         boolean isCD = check(input,2,CD);
         boolean isPWD = check(input,3,PWD);
         boolean isMKDIR = check(input,5,MKDIR);
+        boolean isECHO = check(input,4,ECHO);
         boolean isRM = check(input,2,RM);
         boolean isLS = check(input,2,LS);
         boolean isCAT = check(input,3,CAT);
@@ -107,6 +110,7 @@ public class Send {
                 tmp += args[i] + " ";
             }
             input = tmp + " " + path + "/" + args[args.length - 1];
+            return input;
 
         }
 
@@ -123,6 +127,44 @@ public class Send {
 
             return input;
 
+        }
+
+        if (isECHO){
+            String args[] = input.split("\\s");
+            if(args.length<2){
+                return null;
+            }
+            if(args.length<3){
+                return input;
+            }
+
+            if(input.contains(">")){
+                args= input.split(">");
+
+                if(args[1].contains("/")){
+                    input = args[0]+" "+">"+" "+args[1];
+                }else{
+                    if(path.endsWith("/")){
+                        input = args[0]+" "+">"+" "+path+args[1];
+                    }else{
+                        input = args[0]+" "+">"+" "+path+"/"+args[1].trim();
+                    }
+
+                }
+            }
+
+            return input;
+        }
+
+        if(input.endsWith(SH)){
+
+            if(path.endsWith("/")){
+                input = path+input;
+            }else{
+                input = path+"/"+input;
+            }
+
+            return input;
         }
 
         if (input.contains("/")) {
